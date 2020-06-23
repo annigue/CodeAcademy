@@ -4,28 +4,39 @@ test_traveler = ['Erin Wilkes', 'Shanghai, China', ['historical site', 'art']]
 
 def get_destination_index(destination):
   destination_index = destinations.index(destination)
-  return destination_index
+  return(destination_index)
 
 
 def get_traveler_location(traveler):
   traveler_destination = traveler[1]
   traveler_destination_index = traveler.index(traveler_destination)
-  return traveler_destination_index
+  return(traveler_destination_index)
 
 
 # defining a list of attractions
 attractions = [[] for i in destinations]
 
-print(attractions)
+#print(attractions)
 
+#def add_attraction(destination, attraction):
+#  global destination_index
+ # try:
+  #  destination_index = get_destination_index(destination)
+  #except:
+  #  return destination_index
+ # attractions.insert(destination_index,attraction)
+  #return(attractions)
+  
 def add_attraction(destination, attraction):
-  global destination_index
-  try:
-    destination_index = get_destination_index(destination)
-  except:
-    return destination_index
-  attractions.insert(destination_index,attraction)
-  return attractions
+ destination_index = get_destination_index(destination)
+ try:
+   destination_index = get_destination_index(destination)
+   attractions_for_destination = attractions[destination_index]
+   attractions_for_destination.append(attraction)
+ except SyntaxError:
+   return
+ attractions_for_destination = attractions[destination_index] 
+  
 
 add_attraction("Paris, France", ["the Louvre", ["art", "museum"]])
 add_attraction("Paris, France", ["Arc de Triomphe", ["historical site", "monument"]])
@@ -42,15 +53,13 @@ def find_attractions(destination, interests):
   destination_index = get_destination_index(destination)
   attractions_in_city = attractions[destination_index]
   attractions_with_interest = []
-  for i in attractions_in_city:
-     possible_attraction = i
-     attractions_tags = i[1]
-     for interest in interests:
-        if (interest in attractions_tags):
-          attractions_with_interest.append(possible_attraction)
-  return attractions_with_interest
+  for attri in attractions_in_city:
+    possible_attraction = attri
+    attractions_tags = attri[1]
+    for interest in interests:
+      if interest in attractions_tags:
+      	attractions_with_interest.append(possible_attraction[0])
+  return(attractions_with_interest)
 
-#comment
-
-la_arts = find_attractions("Los Angeles, USA", ["art"])
+la_arts = find_attractions("Los Angeles, USA", ['art'])
 print(la_arts)
